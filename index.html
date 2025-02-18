@@ -1,5 +1,84 @@
-<center>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo di Contatto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
 
-  <h1>PROVA</h1>
-  
-</center>
+    <div class="form-container">
+        <h2>Contattaci</h2>
+        <form id="contact-form" action="process_form.php" method="POST">
+            <label for="first-name">Nome (obbligatorio)</label>
+            <input type="text" id="first-name" name="first-name" required>
+
+            <label for="last-name">Cognome (obbligatorio)</label>
+            <input type="text" id="last-name" name="last-name" required>
+
+            <label for="email">Email (obbligatorio)</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Messaggio (obbligatorio)</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <label for="captcha">Quanto fa 2 + 3? (Risposta obbligatoria per evitare spam)</label>
+            <input type="text" id="captcha" name="captcha" required>
+            
+            <button type="submit">Invia</button>
+        </form>
+
+        <p id="form-error" class="error" style="display: none;">Per favore, rispondi correttamente alla domanda di sicurezza!</p>
+    </div>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', function (e) {
+            const captchaAnswer = document.getElementById('captcha').value;
+            if (captchaAnswer != '5') {
+                e.preventDefault();
+                document.getElementById('form-error').style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>
